@@ -221,8 +221,25 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
             return true;
         }
 
-        // TODO (2) Launch the map when the map menu item is clicked
+        if(id == R.id.action_map)
+        {
+            String geoData = "ozyrysa+9+Gdynia+Poland";
+            showMap(geoData);
+        }
+        // COMPLETED (2) Launch the map when the map menu item is clicked
 
         return super.onOptionsItemSelected(item);
+    }
+    public void showMap(String geoLocation) {
+        Uri locationUri = Uri.parse("geo:0,0?q=" + geoLocation);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(locationUri);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        } else {
+            Log.d(TAG, "Couldn't call " + geoLocation.toString()
+                    + ", no receiving apps installed!");
+        }
     }
 }
